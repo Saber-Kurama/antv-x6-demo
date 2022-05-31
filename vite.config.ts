@@ -19,9 +19,25 @@ const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
 export default defineConfig({
   resolve: {
-    alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
-    },
+    alias: [
+      {
+        find: '~',
+        replacement: path.resolve(__dirname, './src'),
+      },
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, './src'),
+      },
+      {
+        find: '@antv/x6',
+        replacement: '@antv/x6/dist/x6.js',
+      },
+      {
+        find: '@antv/x6-vue-shape',
+        replacement: '@antv/x6-vue-shape/lib',
+      },
+    ],
+
   },
 
   plugins: [

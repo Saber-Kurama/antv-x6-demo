@@ -1,9 +1,12 @@
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { Model } from '@antv/x6'
 import { Cell, Graph, Node, Path } from '@antv/x6'
+// import { useTeleport } from '@antv/x6-vue-shape'
+import { useTeleport } from 'antv-x6-vue-teleport-view'
 import Hierarchy from '@antv/hierarchy'
 import categoryData from '../../data/algorithm-category.json'
-
+import Entity from './Entity'
+import '@antv/x6-vue-shape'
 interface HierarchyResult {
   id: number
   x: number
@@ -11,11 +14,28 @@ interface HierarchyResult {
   children: HierarchyResult[]
 }
 
+const defaultViewId = 'antv-x6-vue-teleport-view'
+
+// 注册一个自定义组件
+Graph.registerNode('entity', {
+  inherit: 'vue-shape',
+  view: defaultViewId,
+  x: 200,
+  y: 150,
+  width: 190,
+  height: 80,
+  component: {
+    render: () => h(Entity),
+  },
+})
+
+// 这个是为了提升自定义节点渲染性能的
+const TeleportContainer = useTeleport(defaultViewId)
 // 连接器
 Graph.registerConnector(
   'mindmap',
   (sourcePoint, targetPoint, routerPoints, options) => {
-    const midX = sourcePoint.x + 10
+    const midX = sourcePoint.x + 0
     const midY = sourcePoint.y
     const ctrX = (targetPoint.x - midX) / 5 + midX
     const ctrY = targetPoint.y
@@ -40,8 +60,9 @@ Graph.registerEdge(
     attrs: {
       line: {
         // targetMarker: ,
-        stroke: '#A2B1C3',
+        stroke: '#3C6EFF ',
         strokeWidth: 1,
+        strokeDasharray: 5,
       },
     },
     zIndex: 0,
@@ -50,6 +71,9 @@ Graph.registerEdge(
 )
 export default defineComponent({
   name: 'ModelGraph',
+  // components: {
+  //   TeleportContainer,
+  // },
   setup: (props, { slots, attrs, emit }) => {
     const data = {
       // 节点
@@ -95,6 +119,9 @@ export default defineComponent({
               thickness: 1, // 网格线宽度/网格点大小
             },
           },
+          interacting: {
+            nodeMovable: false,
+          },
           panning: {
             enabled: true,
             eventTypes: ['leftMouseDown', 'mouseWheel'],
@@ -111,16 +138,16 @@ export default defineComponent({
         const result = Hierarchy.mindmap(categoryData, {
           direction: 'H',
           getHeight() {
-            return 16
+            return 80
           },
           getWidth() {
-            return 16
+            return 190
           },
           getHGap() {
             return 80
           },
           getVGap() {
-            return 1
+            return 44
           },
           getSide: () => {
             return 'right'
@@ -131,11 +158,11 @@ export default defineComponent({
           if (data) {
             model.nodes?.push({
               id: `${data.id}`,
-              x: data.x + 250,
-              y: data.y + 250,
-              shape: 'circle',
-              width: 16,
-              height: 16,
+              x: data.x,
+              y: data.y,
+              shape: 'entity',
+              width: 190,
+              height: 80,
               attrs: {
                 body: {
                   fill: '#5F95FF',
@@ -149,8 +176,29 @@ export default defineComponent({
               console.log('item---', item)
               model.edges?.push({
                 shape: 'mindmap-edge',
-                source: `${data.id}`,
-                target: `${item.id}`,
+                // source: `${data.id}`,
+                source: {
+                  cell: `${data.id}`,
+                  anchor:
+                  {
+                    name: 'right',
+                    args: {
+                      // dx: -16,
+                    },
+                  },
+                },
+                target: {
+                  cell: `${item.id}`,
+                  anchor:
+                  {
+                    name: 'left',
+                    // args: {
+                    //   dx: -16,
+                    // },
+                  },
+                },
+                // target: `${item.id}`,
+
                 // vertices: [{ x: item.x + 250 - 46, y: item.y + 250 + 8 }],
                 // connector: { name: 'smooth' },
                 // router: { name: 'er' },
@@ -186,6 +234,7 @@ export default defineComponent({
     return () => {
       return (
         <div style={{ height: '800px' }}>
+          <TeleportContainer />
           <div ref={domRef} style={{ width: '100%', height: '800px' }}></div>
         </div>
 
