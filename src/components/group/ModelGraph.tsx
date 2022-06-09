@@ -8,6 +8,7 @@ import Hierarchy from '@antv/hierarchy'
 import vueShape, { useTeleport } from '@antv/x6-vue-shape'
 import SourceNode from './SourceNode'
 import './registerNode'
+import { getJSONData } from './groupData'
 // interface HierarchyResult {
 //   id: number
 //   x: number
@@ -95,57 +96,7 @@ export default defineComponent({
     const domRef = ref()
     // todo: 是否需要 ref
     const graph = ref()
-    const getJSONData = () => {
-      const nodes: any[] = []
-      const edges: any[] = []
-      const souresList: any[] = [
-        {
-          id: 's1',
-        },
-      ]
-      const sourceData = {
-        parent: {
-          point: {
-            x: 40,
-            y: 40,
-          },
-        },
-        width: 248,
-        header: {
-          height: 48,
-        },
-      }
-      const sourceHeader = {
-        id: 'source-hedaer',
-        x: sourceData.parent.point.x,
-        y: sourceData.parent.point.y,
-        width: sourceData.width,
-        height: sourceData.header.height,
-        shape: 'group-header',
-      }
-      nodes.push({
-        x: 40,
-        y: 40,
-        width: 248,
-        height: 160,
-        zIndex: 1,
-        label: '',
-        attrs: {
-          body: {
-            fill: '#ffffff',
-            stroke: '#E8EBF2',
-            strokeWidth: 1,
-            rx: 3,
-            ry: 3,
-          },
-        },
-      })
-      nodes.push(sourceHeader)
-      return {
-        nodes,
-        edges,
-      }
-    }
+
     const initGraph = () => {
       if (domRef.value && !graph.value) {
         graph.value = new Graph({
