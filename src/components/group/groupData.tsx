@@ -106,6 +106,15 @@ export const getJSONData = () => {
     },
   ]
   const sourceNodeIds: string[] = []
+  // attrs: {
+  //   fo: {
+  //     width: 12,
+  //     height: 12,
+  //     x: -6,
+  //     y: -6,
+  //     magnet: 'true',
+  //   },
+  // },
   const sourceNodes = souresList.map((d, index) => {
     sourceNodeIds.push(d.id)
     return {
@@ -123,7 +132,7 @@ export const getJSONData = () => {
             },
             attrs: {
               circle: {
-                r: 2,
+                r: 0,
                 stroke: '#31d0c6',
                 strokeWidth: 1,
                 fill: '#fff',
@@ -135,6 +144,9 @@ export const getJSONData = () => {
           {
             id: 'port',
             group: 'group1',
+            args: {
+              dx: -4,
+            },
           },
         ],
       },
@@ -158,7 +170,7 @@ export const getJSONData = () => {
             },
             attrs: {
               circle: {
-                r: 2,
+                r: 0,
                 stroke: '#31d0c6',
                 strokeWidth: 1,
                 fill: '#fff',
@@ -170,6 +182,9 @@ export const getJSONData = () => {
           {
             id: 'port',
             group: 'group1',
+            args: {
+              dx: 4,
+            },
           },
         ],
       },

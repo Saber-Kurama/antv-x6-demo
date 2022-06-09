@@ -48,9 +48,16 @@ Graph.registerEdge(
     inherit: 'edge',
     attrs: {
       line: {
-        stroke: '#C2C8D5',
+        stroke: '#9098A9',
         strokeWidth: 1,
-        targetMarker: null,
+        sourceMarker: {
+          name: 'circle',
+          r: 3,
+        },
+        targetMarker: {
+          name: 'circle',
+          r: 3,
+        },
       },
     },
   },
