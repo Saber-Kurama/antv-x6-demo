@@ -1,0 +1,19 @@
+.ax6-source-header-wrap {
+  height: 48PX;
+  border-radius: 3PX 3PX 0 0;
+  background: #fff;
+  overflow: hidden;
+}
+.ax6-source-header-wrap-line{
+  height: 3PX;
+  background: #396EFE;
+}
+.ax6-source-header-text-wrap{
+  padding: 0 12px;
+}
+
+.ax6-source-header-text {
+  height: 39px;
+  line-height: 39px;
+  border-bottom: 1px solid #E8EBF2;
+}

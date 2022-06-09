@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ModelGraph from '~/components/model/ModelGraph'
+import ModelGraph from '~/components/group/ModelGraph'
 </script>
 
 <template>
@@ -7,4 +7,3 @@ import ModelGraph from '~/components/model/ModelGraph'
     <ModelGraph />
   </div>
 </template>
-
