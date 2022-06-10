@@ -134,110 +134,12 @@ export default defineComponent({
         })
         const datajosn = getJSONData()
         graph.value.fromJSON(datajosn)
-        // const sourceParent = graph.value.addNode({
-        //   x: 40,
-        //   y: 40,
-        //   width: 248,
-        //   height: 160,
-        //   zIndex: 1,
-        //   label: '',
-        //   attrs: {
-        //     body: {
-        //       fill: '#ffffff',
-        //       stroke: '#ddd',
-        //       rx: 3,
-        //       ry: 3,
-        //     },
-        //   },
-        // })
-        // const targetParent = graph.value.addNode({
-        //   x: 500,
-        //   y: 40,
-        //   width: 248,
-        //   height: 160,
-        //   zIndex: 1,
-        //   label: '',
-        //   attrs: {
-        //     body: {
-        //       fill: '#fffbe6',
-        //       stroke: '#ffe7ba',
-        //     },
-        //     label: {
-        //       fontSize: 12,
-        //     },
-        //   },
-        // })
-        // const source = graph.value.addNode({
-        //   x: 40,
-        //   y: 100,
-        //   width: 248,
-        //   height: 36,
-        //   ports: {
-        //     groups: {
-        //       group1: {
-        //         position: {
-        //           name: 'right',
-        //         },
-        //         attrs: {
-        //           circle: {
-        //             r: 4,
-        //             stroke: '#31d0c6',
-        //             strokeWidth: 1,
-        //             fill: '#fff',
-        //           },
-        //         },
-        //       },
-        //     },
-        //     items: [
-        //       {
-        //         id: 'port',
-        //         group: 'group1',
-        //       },
-        //     ],
-        //   },
-        //   shape: 'source-node',
-        //   zIndex: 10,
-        //   attrs: {
-        //     body: {
-        //       stroke: 'none',
-        //       fill: '#3199FF',
-        //     },
-        //     label: {
-        //       fill: '#fff',
-        //       fontSize: 12,
-        //     },
-        //   },
-        // })
-        // const target = graph.value.addNode({
-        //   x: 500,
-        //   y: 400,
-        //   width: 248,
-        //   height: 36,
-        //   shape: 'source-node',
-        //   zIndex: 10,
-        //   attrs: {
-        //     body: {
-        //       stroke: 'none',
-        //       fill: '#3199FF',
-        //     },
-        //     label: {
-        //       fill: '#fff',
-        //       fontSize: 12,
-        //     },
-        //   },
-        // })
-        // sourceParent.addChild(source)
-        // targetParent.addChild(target)
-        // graph.value.addEdge({
-        //   source: {
-        //     cell: source,
-        //     port: 'port',
-        //   },
-        //   target,
-        //   shape: 'group-edge',
-        //   connector: 'smooth',
-        // })
-        // console.log(graph.value.toJSON())
+        graph.value.on('edge:mouseenter', ({ edge }: any) => {
+          edge.attr('line/stroke', 'orange')
+        })
+        graph.value.on('edge:mouseleave', ({ edge }: any) => {
+          edge.attr('line/stroke', '#9098A9')
+        })
       }
     }
     onMounted(() => {
