@@ -15,6 +15,7 @@
   "dependencies": {
     "@antv/hierarchy": "^0.6.8",
     "@antv/x6": "^1.32.2",
+    "@antv/x6-common": "^2.0.16",
     "@antv/x6-vue-shape": "^1.4.0",
     "@arco-design/web-vue": "^2.28.0",
     "@vueuse/core": "^8.5.0",
@@ -23,6 +24,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "prism-theme-vars": "^0.2.3",
+    "x6-html-shape": "^0.4.1",
     "vue": "^3.2.36",
     "vue-demi": "^0.12.5",
     "vue-i18n": "^9.1.10",

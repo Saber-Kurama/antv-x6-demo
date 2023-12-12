@@ -1,12 +1,32 @@
 import { defineComponent, h } from 'vue'
 import type { Model } from '@antv/x6'
 import { Cell, Graph, Node, Path } from '@antv/x6'
+
+
 // import { useTeleport } from '@antv/x6-vue-shape'
 import { useTeleport } from 'antv-x6-vue-teleport-view'
 import Hierarchy from '@antv/hierarchy'
 import categoryData from '../../data/algorithm-category.json'
 import Entity from './Entity'
 import '@antv/x6-vue-shape'
+
+import { register } from '../x6-html-shape/index'
+// import createRender from 'x6-html-shape/dist/teleport'
+
+
+import createRender from '../x6-html-shape/vue'
+
+const render = createRender(Entity)
+
+// const render = createRender(Component)
+
+register({
+  shape: 'vue3-node',
+  render,
+  width: 100,
+  height: 40,
+})
+
 interface HierarchyResult {
   id: number
   x: number
@@ -14,23 +34,23 @@ interface HierarchyResult {
   children: HierarchyResult[]
 }
 
-const defaultViewId = 'antv-x6-vue-teleport-view'
+// const defaultViewId = 'antv-x6-vue-teleport-view'
 
-// 注册一个自定义组件
-Graph.registerNode('entity', {
-  inherit: 'vue-shape',
-  view: defaultViewId,
-  x: 200,
-  y: 150,
-  width: 190,
-  height: 80,
-  component: {
-    render: () => h(Entity),
-  },
-})
+// // 注册一个自定义组件
+// Graph.registerNode('entity', {
+//   inherit: 'vue-shape',
+//   view: defaultViewId,
+//   x: 200,
+//   y: 150,
+//   width: 190,
+//   height: 80,
+//   component: {
+//     render: () => h(Entity),
+//   },
+// })
 
 // 这个是为了提升自定义节点渲染性能的
-const TeleportContainer = useTeleport(defaultViewId)
+// const TeleportContainer = useTeleport(defaultViewId)
 // 连接器
 Graph.registerConnector(
   'mindmap',
@@ -160,7 +180,8 @@ export default defineComponent({
               id: `${data.id}`,
               x: data.x,
               y: data.y,
-              shape: 'entity',
+              // shape: 'entity',
+              shape: 'vue3-node',
               width: 190,
               height: 80,
               attrs: {
@@ -234,7 +255,7 @@ export default defineComponent({
     return () => {
       return (
         <div style={{ height: '800px' }}>
-          <TeleportContainer />
+          {/* <TeleportContainer /> */}
           <div ref={domRef} style={{ width: '100%', height: '800px' }}></div>
         </div>
 
